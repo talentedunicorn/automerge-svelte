@@ -2,6 +2,33 @@
   import svelteLogo from './assets/svelte.svg'
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
+  import type { DocType } from './lib/doc-type';
+
+  import { Counter as AutomergeCounter } from '@automerge/automerge';
+  import { DocHandle, Repo, isValidAutomergeUrl } from '@automerge/automerge-repo';
+  import { BroadcastChannelNetworkAdapter } from '@automerge/automerge-repo-network-broadcastchannel';
+  import { IndexedDBStorageAdapter } from '@automerge/automerge-repo-storage-indexeddb';
+  import { setContextRepo } from '@automerge/automerge-repo-svelte-store';
+
+  const repo = new Repo({
+    network: [
+      new BroadcastChannelNetworkAdapter(),
+    ],
+    storage: new IndexedDBStorageAdapter(),
+  })
+
+  setContextRepo(repo)
+
+  const rootDocUrl = `${document.location.hash.substring(1)}`
+  let handle: DocHandle<DocType>;
+  if (isValidAutomergeUrl(rootDocUrl)) {
+    handle = repo.find(rootDocUrl)
+  } else {
+    handle = repo.create<DocType>({ count: new AutomergeCounter()})
+  }
+
+  const docUrl = (document.location.hash = handle.url)
+
 </script>
 
 <main>
@@ -16,7 +43,7 @@
   <h1>Vite + Svelte</h1>
 
   <div class="card">
-    <Counter />
+    <Counter {docUrl} />
   </div>
 
   <p>
