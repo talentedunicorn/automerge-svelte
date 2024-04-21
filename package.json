@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently 'PORT=4000 pnpm automerge-repo-sync-server' 'vite'",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -12,6 +12,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@tsconfig/svelte": "^5.0.2",
+    "concurrently": "^8.2.2",
     "svelte": "^4.2.12",
     "svelte-check": "^3.6.7",
     "tslib": "^2.6.2",
@@ -23,8 +24,10 @@
     "@automerge/automerge": "2.2.0-rc1",
     "@automerge/automerge-repo": "^1.1.5",
     "@automerge/automerge-repo-network-broadcastchannel": "^1.1.5",
+    "@automerge/automerge-repo-network-websocket": "^1.1.5",
     "@automerge/automerge-repo-storage-indexeddb": "^1.1.5",
     "@automerge/automerge-repo-svelte-store": "^1.1.5",
+    "@automerge/automerge-repo-sync-server": "^0.2.7",
     "vite-plugin-wasm": "^3.3.0"
   }
 }

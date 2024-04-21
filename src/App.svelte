@@ -8,11 +8,13 @@
   import { DocHandle, Repo, isValidAutomergeUrl } from '@automerge/automerge-repo';
   import { BroadcastChannelNetworkAdapter } from '@automerge/automerge-repo-network-broadcastchannel';
   import { IndexedDBStorageAdapter } from '@automerge/automerge-repo-storage-indexeddb';
+  import { BrowserWebSocketClientAdapter} from '@automerge/automerge-repo-network-websocket'
   import { setContextRepo } from '@automerge/automerge-repo-svelte-store';
 
   const repo = new Repo({
     network: [
       new BroadcastChannelNetworkAdapter(),
+      new BrowserWebSocketClientAdapter(`ws://localhost:4000`)
     ],
     storage: new IndexedDBStorageAdapter(),
   })
