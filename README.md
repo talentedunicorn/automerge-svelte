@@ -1,6 +1,16 @@
-# Svelte + TS + Vite
+# Svelte + Automerge
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+This app is a simple button with incremental counter using [Automerge](https://automerge.org/) for local and remote synchronization of data.
+
+See [quickstart guide](https://automerge.org/docs/quickstart/) for more details.
+
+## Running your own sync server
+
+You may want to run a sync server to handle remote sync; this can be done (in development) using [automerge-repo-sync-server](https://github.com/automerge/automerge-repo-sync-server) package.
+
+Simply run `PORT=[SERVER_PORT] DATA_DIR=[DIR_ON_SERVER_TO_STORE_DATA] npx @automerge/automerge-repo-sync-server` to start an Express server with websocket at `ws://localhost:[PORT]`
+
+**Note** Running `pnpm dev` will also run a sync server on `ws://localhost:4000`
 
 ## Recommended IDE Setup
 
