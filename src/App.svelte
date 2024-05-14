@@ -10,6 +10,7 @@
   import { IndexedDBStorageAdapter } from '@automerge/automerge-repo-storage-indexeddb';
   import { BrowserWebSocketClientAdapter} from '@automerge/automerge-repo-network-websocket'
   import { setContextRepo } from '@automerge/automerge-repo-svelte-store';
+  import Message from './lib/Message.svelte';
 
   const repo = new Repo({
     network: [
@@ -20,13 +21,13 @@
   })
 
   setContextRepo(repo)
-
+  
   const rootDocUrl = `${document.location.hash.substring(1)}`
   let handle: DocHandle<DocType>;
   if (isValidAutomergeUrl(rootDocUrl)) {
     handle = repo.find(rootDocUrl)
   } else {
-    handle = repo.create<DocType>({ count: new AutomergeCounter()})
+    handle = repo.create<DocType>({ message: '', count: new AutomergeCounter() })
   }
 
   const docUrl = (document.location.hash = handle.url)
@@ -46,6 +47,7 @@
 
   <div class="card">
     <Counter {docUrl} />
+    <Message {docUrl} />
   </div>
 
   <p>

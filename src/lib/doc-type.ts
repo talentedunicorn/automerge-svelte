@@ -1,5 +1,6 @@
 import type { Counter } from '@automerge/automerge'
 
 export type DocType = {
-  count: Counter
+  count: Counter,
+  message: string,
 }
